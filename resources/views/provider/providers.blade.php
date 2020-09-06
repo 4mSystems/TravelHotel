@@ -13,7 +13,7 @@
                 <li class="breadcrumb-item">
                     <a href="{{url('home')}}">{{trans('admin.home')}}</a>
                 </li>
-                <li class="breadcrumb-item"> {{trans('admin.nav_add_Super_Admin')}}
+                <li class="breadcrumb-item"> {{trans('admin.nav_Provider')}}
                 </li>
 
             </ol>
@@ -26,15 +26,15 @@
         </div>
 
         <div class="content-body">
-  <h1>{{trans('admin.super_admins')}}</h1>
+  <h1>{{trans('admin.nav_Provider')}} </h1>
 
             <!-- stats -->
             <div class="row">
 
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{url('super_Admin/create')}} "
-                           class="btn btn-info btn-bg">{{trans('admin.add_new_super_admin')}} </a>
+                        <a href="{{url('provider/create')}} "
+                           class="btn btn-info btn-bg">{{trans('admin.add_new_Provider')}} </a>
                         <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -76,11 +76,11 @@
                                             <td class="text-lg-center">{{$user->company_name}}</td>
 
                                             <td class="text-lg-center"><a class='btn btn-raised btn-success btn-sml'
-                                                                          href=" {{url('super_Admin/'.$user->id.'/edit')}}"><i
+                                                                          href=" {{url('provider/'.$user->id.'/edit')}}"><i
                                                         class="icon-edit"></i></a>
 
                                                 <form method="get" id='delete-form-{{ $user->id }}'
-                                                      action="{{url('super_Admin/'.$user->id.'/delete')}}"
+                                                      action="{{url('provider/'.$user->id.'/delete')}}"
                                                       style='display: none;'>
                                                 {{csrf_field()}}
                                                 <!-- {{method_field('delete')}} -->

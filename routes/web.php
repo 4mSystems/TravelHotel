@@ -13,12 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('blank');
-});
+// Route::get('/', function () {
+//     return view('wel');
+// });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('super_Admin', 'Provider\SuperAdminController');
+Route::get('super_Admin/{id}/delete', 'Provider\SuperAdminController@destroy');
 
+Route::resource('provider', 'Provider\providerController');
+Route::get('provider/{id}/delete', 'Provider\providerController@destroy');

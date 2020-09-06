@@ -12,12 +12,19 @@
 
             </li>
 
-                <li class=" nav-item">
-                    <a href="{{url('super_Admin')}}"><i class="icon-users"></i>
-                        <span data-i18n="nav.dash.main"
-                              class="menu-title">{{trans('admin.nav_add_Super_Admin')}}</span></a>
+            <li class=" nav-item">
+                <a href="{{url('super_Admin')}}"><i class="icon-users"></i>
+                    <span data-i18n="nav.dash.main"
+                            class="menu-title">{{trans('admin.nav_add_Super_Admin')}}</span></a>
 
-                </li>
+            </li>
+
+            <li class=" nav-item">
+                <a href="{{url('provider')}}"><i class="icon-users"></i>
+                    <span data-i18n="nav.dash.main"
+                            class="menu-title">{{trans('admin.nav_Provider')}}</span></a>
+
+            </li>
 
 
         </ul>

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\User;
 
-class SuperAdminController extends Controller
+class providerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class SuperAdminController extends Controller
     public function index()
     {
 
-        $users = User::where('type','super admin')->limit(10)->get();
-        return view('admin.super_admin',\compact('users'));
+        $users = User::where('type','provider')->limit(10)->get();
+        return view('provider.providers',\compact('users'));
 
     }
 
@@ -29,7 +29,7 @@ class SuperAdminController extends Controller
      */
     public function create()
     {
-        return view('admin.create_super_admin');
+        return view('provider.create_provider');
     }
 
     /**
@@ -53,11 +53,11 @@ class SuperAdminController extends Controller
         ]);
 
     $data['password'] = Hash::make(request('password'));
-    $data['type'] = "super admin";
+    $data['type'] = "provider";
     $user = User::create($data);
     $user->save();
     session()->flash('success', trans('admin.addedsuccess'));
-    return redirect(url('super_Admin'));
+    return redirect(url('provider'));
 
     }
 
@@ -81,7 +81,7 @@ class SuperAdminController extends Controller
     public function edit($id)
     {
         $user_data = User::where('id', $id)->first();
-        return view('admin.edit_super_admin', \compact('user_data'));
+        return view('provider.edit_provider', \compact('user_data'));
     }
 
     /**
@@ -116,7 +116,7 @@ class SuperAdminController extends Controller
     User::where('id', $id)->update($data);
     session()->flash('success', trans('admin.updatSuccess'));
 
-    return redirect(url('super_Admin'));
+    return redirect(url('provider'));
     }
 
     /**
@@ -130,6 +130,6 @@ class SuperAdminController extends Controller
         $user = User::where('id', $id)->first();
         $user->delete();
         session()->flash('success', trans('admin.deleteSuccess'));
-        return redirect(url('super_Admin'));
+        return redirect(url('provider'));
     }
 }

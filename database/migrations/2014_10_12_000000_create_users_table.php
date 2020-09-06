@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('phone')->nullable();ssssssssssssssssssssssss
+            $table->string('phone')->nullable();
             $table->enum('payment_method',['cash','visa'])->default('cash');
             $table->string('card_number');
             $table->enum('type',['super admin','provider','customer'])->default('super admin');

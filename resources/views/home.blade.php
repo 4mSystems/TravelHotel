@@ -1,23 +1,25 @@
-@extends('layouts.app')
+
+@extends('admin_temp')
+
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+    {{--Main Menu--}}
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <div class="app-content content container-fluid">
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body"><!-- stats -->
 
-                    {{ __('You are logged in!') }}
-                </div>
+                <h1>Home page</h1>
+                {{--                Write your content here ...--}}
+
+
+
+
+
             </div>
         </div>
     </div>
-</div>
+
 @endsection
