@@ -1,5 +1,14 @@
 
+
+
 @extends('admin_temp')
+@section('styles')
+
+<link rel="stylesheet" href="{{ asset('/assets/css/bootstrap-social.css') }}">
+		<link rel="stylesheet" href="{{ asset('/assets/css/ladda.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('/assets/css/ladda-themeless.min.css') }}">
+
+        @endsection
 
 
 @section('content')
@@ -13,32 +22,33 @@
                 <li class="breadcrumb-item">
                     <a href="{{url('home')}}">{{trans('admin.home')}}</a>
                 </li>
-                <li class="breadcrumb-item"> {{trans('admin.nav_add_Super_Admin')}}
+                <li class="breadcrumb-item"> {{trans('admin.nav_ads')}}
                 </li>
 
             </ol>
         </div>
     </div>
-  
+ 
     <div class="app-content content container-fluid">
     <div class="content-wrapper">
+
     @include('layouts.errors')
 
 @include('layouts.messages')
-
         <div class="content-header row">
         </div>
 
         <div class="content-body">
-  <h1>{{trans('admin.super_admins')}}</h1>
+  <h1>{{trans('admin.nav_ads')}} </h1>
+
 
             <!-- stats -->
             <div class="row">
 
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{url('super_Admin/create')}} "
-                           class="btn btn-info btn-bg">{{trans('admin.add_new_super_admin')}} </a>
+                        <a href="{{url('ads/create')}} "
+                           class="btn btn-info btn-bg">{{trans('admin.add_new_ads')}} </a>
                         <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -60,28 +70,38 @@
                                     <tr>
                                         <th class="text-lg-center">{{trans('admin.Public_HashNum')}}</th>
                                         <th class="text-lg-center">{{trans('admin.name')}}</th>
-                                        <th class="text-lg-center">{{trans('admin.email')}}</th>
-                                        <th class="text-lg-center">{{trans('admin.phone')}}</th>
-                                        <th class="text-lg-center">{{trans('admin.company_name')}}</th>
+                                        <th class="text-lg-center">{{trans('admin.start_at')}}</th>
+                                        <th class="text-lg-center">{{trans('admin.end_at')}}</th>
+                                        <th class="text-lg-center">{{trans('admin.image')}}</th>
                                         <th class="text-lg-center"></th>
 
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($users as $user)
+                                    @php
+                                    $accepted='accepted';
+                                @endphp
+                                    @foreach($ads as $ad)
                                         <tr>
-                                            <th scope="row" class="text-lg-center">{{$user->id}}</th>
-                                            <td class="text-lg-center">{{$user->name}}</td>
-                                            <td class="text-lg-center">{{$user->email}}</td>
-                                            <td class="text-lg-center">{{$user->phone}}</td>
-                                            <td class="text-lg-center">{{$user->company_name}}</td>
+                                            <th scope="row" class="text-lg-center">{{$ad->id}}</th>
+                                            <td class="text-lg-center">{{$ad->name}}</td>
+                                            <td class="text-lg-center">{{$ad->start_at}}</td>
+                                            <td class="text-lg-center">{{$ad->end_at}}</td>
+                                            <td class="text-lg-center"> 
+                                            <img src="{{ url($ad->image) }}"
+                                     style="width:90px;height:90px;"/>
+                                     </td>
 
-                                            <td class="text-lg-center"><a class='btn btn-raised btn-success btn-sml'
-                                                                          href=" {{url('super_Admin/'.$user->id.'/edit')}}"><i
+                                            <td class="text-lg-center">
+                                            <a class='btn btn-raised btn-success btn-sml'
+                                                                          href=" {{url('ads/'.$ad->id.'/images')}}"><i
+                                                        ></i>Add Images</a>
+                                            <a class='btn btn-raised btn-success btn-sml'
+                                                                          href=" {{url('ads/'.$ad->id.'/edit')}}"><i
                                                         class="icon-edit"></i></a>
 
-                                                <form method="get" id='delete-form-{{ $user->id }}'
-                                                      action="{{url('super_Admin/'.$user->id.'/delete')}}"
+                                                <form method="get" id='delete-form-{{ $ad->id }}'
+                                                      action="{{url('ads/'.$ad->id.'/delete')}}"
                                                       style='display: none;'>
                                                 {{csrf_field()}}
                                                 <!-- {{method_field('delete')}} -->
@@ -89,7 +109,7 @@
                                                 <button onclick="if(confirm('{{trans('admin.deleteConfirmation')}}'))
                                                     {
                                                     event.preventDefault();
-                                                    document.getElementById('delete-form-{{ $user->id }}').submit();
+                                                    document.getElementById('delete-form-{{ $ad->id }}').submit();
                                                     }else {
                                                     event.preventDefault();
                                                     }
@@ -115,3 +135,11 @@
 
 
 @endsection
+
+@section('scripts')
+
+<script src="{{ asset('/assets/js/spin.min.js') }}"></script>
+		<script src="{{ asset('/assets/js/ladda.min.js') }}"></script>
+		<script src="{{ asset('/assets/js/ui-buttons.js') }}"></script>
+
+        @endsection

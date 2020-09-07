@@ -6,9 +6,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{url('home')}}">{{trans('admin.home')}}</a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{url('super_Admin')}}">{{trans('admin.nav_add_Super_Admin')}}</a>
+                <li class="breadcrumb-item"><a href="{{url('ads')}}">{{trans('admin.nav_ads')}}</a>
                 </li>
-                <li class="breadcrumb-item"> {{trans('admin.add_new_super_admin')}}
+                <li class="breadcrumb-item"> {{trans('admin.add_new_ads')}}
                 </li>
 
             </ol>
@@ -30,16 +30,15 @@
                             padding-right: 15px;
                              padding-left: 20px;
                              '>
-                                <h3 class="card-title">{{trans('admin.add_new_super_admin')}} </h3>
+                                <h3 class="card-title">{{trans('admin.add_new_ads')}} </h3>
                             </div>
 
-                    
+               
                         <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="card-block">
-                                    {{ Form::open( ['url' => ['super_Admin'],'method'=>'post', 'files'=>'true'] ) }}
+                                    {{ Form::open( ['url' => ['ads'],'method'=>'post', 'files'=>'true'] ) }}
                                     {{ csrf_field() }}
-
 
                                     <div class="form-group">
                                         <strong>{{trans('admin.name')}}</strong>
@@ -47,40 +46,36 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <strong>{{trans('admin.email')}}</strong>
-                                        {{ Form::email('email',old('email'),["class"=>"form-control" ,"required" ]) }}
-                                    </div>
-                                    <div class="form-group">
-                                        <strong>{{trans('admin.password')}}</strong><br>
-                                        <input type="password" name="password" class="form-control"
-                                               required>
-                                    </div>
-
-                                    <div class="form-group">
                                         <strong>{{trans('admin.phone')}}</strong>
-                                        {{ Form::text('phone',old('phone'),["class"=>"form-control" ,"required",'max'=>'9999999999999'   ]) }}
+                                        {{ Form::text('phone',old('phone'),["class"=>"form-control" ,"required" ]) }}
+                                    </div>
+                                    <div class="form-group">
+                                        <strong>{{trans('admin.address')}}</strong>
+                                        {{ Form::text('address',old('address'),["class"=>"form-control" ,"required" ]) }}
                                     </div>
 
                                     <div class="form-group">
-                                        <strong>{{trans('admin.company_name')}}</strong>
-                                        {{ Form::text('company_name',old('company_name'),["class"=>"form-control"]) }}
+                                        <strong>{{trans('admin.description')}}</strong>
+                                        {{ Form::textArea('description',old('description'),["class"=>"form-control" ,"required"]) }}
                                     </div>
 
                                     <div class="form-group">
-                                        <strong>{{trans('admin.payment_method')}}</strong><br>
-
-                                        <select id="payment_method" name="payment_method" required
-                                                class="form-control">
-                                            <option value="cash">{{trans('admin.cash')}}</option>
-                                            <option value="visa">{{trans('admin.visa')}}</option>
-                                        </select>
-                                        <span class="text-danger" id="type_error"></span>
+                                        <strong>{{trans('admin.start_at')}}</strong>
+                                        {{ Form::text('start_at',old('start_at'),["class"=>"form-control" ,"required"]) }}
                                     </div>
-
                                     <div class="form-group">
-                                        <strong>{{trans('admin.card_number')}}</strong>
-                                        {{ Form::number('card_number',old('card_number'),["class"=>"form-control"]) }}
+                                    <strong>{{trans('admin.end_at')}}</strong>
+                                    {{ Form::text('end_at',old('end_at'),["class"=>"form-control" ,"required"]) }}
                                     </div>
+
+                                <div class="form-group">
+                                {{ Form::select('category_id',App\Category::pluck('name','id'),null
+                                ,["class"=>"form-control dept_id" ,'placeholder'=>trans('admin.choose_Category') ]) }}
+                            </div>
+                            <div class="form-group">
+                            <strong>{{trans('admin.image')}}</strong>
+                            {{ Form::file('image',array('accept'=>'image/*','class'=>'form-control' )) }}
+                        </div>
 
                                     {{ Form::submit( trans('admin.public_Add') ,['class'=>'btn btn-success btn-min-width mr-1 mb-1','style'=>'margin:10px']) }}
                                     {{ Form::close() }}

@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Provider;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
 
 class providerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
     public function index()
     {
 
@@ -22,7 +23,7 @@ class providerController extends Controller
 
     }
 
-    /**
+    /**ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -54,6 +55,7 @@ class providerController extends Controller
 
     $data['password'] = Hash::make(request('password'));
     $data['type'] = "provider";
+    $data['added_by'] = Auth::user()->id;
     $user = User::create($data);
     $user->save();
     session()->flash('success', trans('admin.addedsuccess'));

@@ -17,13 +17,14 @@
     </div>
     <div class="app-content content container-fluid">
         <div class="content-wrapper">
+        @include('layouts.errors')
+
+@include('layouts.messages')
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">{{trans('admin.update_superadmin')}} </h3>
                 </div>
-            @include('layouts.errors')
-
-            @include('layouts.messages')
+           
             <!-- /.card-header -->
                 <div class="card-body">
                     <div class="card-block">

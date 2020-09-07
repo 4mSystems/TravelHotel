@@ -20,15 +20,13 @@ class CreateAdsTable extends Migration
             $table->string('description');
             $table->string('phone');
             $table->string('address');
-            $table->enum('status',['pindding','accepted','rejected','expired'])->default('pindding');
+            $table->enum('status',['pending','accepted','rejected','expired'])->default('pindding');
             $table->time('start_at');
             $table->time('end_at');
             $table->bigInteger('provider_id')->unsigned()->nullable();
             $table->foreign('provider_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('category_id')->unsigned()->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            
-            $table->integer('added_by')->nullable();
             $table->timestamps();
         });
     }
