@@ -11,7 +11,7 @@ use App\User;
 
 class AdsImagesApiController extends Controller
 {
-
+    public $i =1;
     public $LoginWarning ='You Want to login First !';
     
 
@@ -84,7 +84,7 @@ class AdsImagesApiController extends Controller
             $user = User::where('api_token',$api_token)->first();
             if($user != null){
             
-                foreach ($request->input('image') as $ima) {
+                foreach ($input['image'] as $ima) {
                   
                     $gallery['image'] = $this->MoveImage($ima);
                     $gallery['provider_id'] = $provider_id;
@@ -122,7 +122,6 @@ class AdsImagesApiController extends Controller
             $user = User::where('api_token',$api_token)->first();
             if($user != null){
 
-                dd($input['ad_image_id']);
                 foreach ($input['ad_image_id'] as $image_id) {
 
                     ads_image::find($image_id)->delete();
