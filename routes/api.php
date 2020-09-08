@@ -17,3 +17,25 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('login', 'API\AuthController@login');
+Route::post('logout','API\AuthController@logout');
+
+Route::post('register','API\registerApiController@store');
+
+
+Route::post('all_ads','API\AdsApiController@all_ads');
+Route::post('store_ad','API\AdsApiController@store_ad');
+Route::post('uodate_ad','API\AdsApiController@uodate_ad');
+Route::post('delete_ad','API\AdsApiController@delete_ad');
+
+Route::post('ads_WithCat','API\AdsApiController@ads_WithCat');
+Route::post('ad_with_id','API\AdsApiController@ad_with_id');
+
+Route::post('all_ad_images','API\AdsImagesApiController@all_ad_images');
+Route::post('store_ad_images','API\AdsImagesApiController@store_ad_images');
+Route::post('delete_ad_images','API\AdsImagesApiController@delete_ad_images');
+
+Route::post('categories','API\CategoryApiController@index');
+
+

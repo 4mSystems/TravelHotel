@@ -64,6 +64,9 @@
                             </div>
                             <h6 class="card-subtitle line-on-side text-muted text-xs-center font-small-3 pt-2">
                                 <span>{{trans('admin.loginTitle')}}</span></h6>
+
+                                @include('layouts.errors')
+            @include('layouts.messages')
                         </div>
                         <div class="card-body collapse in">
                             <div class="card-block">

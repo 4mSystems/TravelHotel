@@ -18,8 +18,7 @@
         <div class="app-content content container-fluid">
             <div class="content-wrapper">
             @include('layouts.errors')
-
-@include('layouts.messages')
+            @include('layouts.messages')
 
                 <div class="content-body"><!-- stats -->
                     <div class="row">

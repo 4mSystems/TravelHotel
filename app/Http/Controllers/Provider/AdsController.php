@@ -62,8 +62,8 @@ class AdsController extends Controller
 
 
     $data['provider_id'] = Auth::user()->id;
-    $user = ad::create($data);
-    $user->save();
+    $ad = ad::create($data);
+    $ad->save();
     session()->flash('success', trans('admin.addedsuccess'));
     return redirect(url('ads'));
 
@@ -111,7 +111,7 @@ class AdsController extends Controller
         ]);
 
         $input = $request->all();
-
+dd($input['image']);
         foreach ($input['image'] as $ima) {
             # code...
             $gallery['image'] = $this->MoveImage($ima);

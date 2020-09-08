@@ -136,7 +136,7 @@
                                             <td class="text-lg-center">
                                             <a class='btn btn-raised btn-success btn-sml'
                                                                           href=" {{url('ads/'.$ad->id.'/images')}}"><i
-                                                        ></i>Add Images</a>
+                                                        ></i>{{trans('admin.images')}}</a>
                                             <a class='btn btn-raised btn-success btn-sml'
                                                                           href=" {{url('ads/'.$ad->id.'/edit')}}"><i
                                                         class="icon-edit"></i></a>

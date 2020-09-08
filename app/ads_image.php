@@ -15,4 +15,17 @@ class ads_image extends Model
         else
             return "";
     }
+
+    public function getUser()
+    {
+
+        return $this->hasOne('App\User', 'id', 'provider_id');
+
+    }
+    public function ads()
+    {
+
+        return $this->hasOne('App\ad', 'id', 'ads_id');
+
+    }
 }

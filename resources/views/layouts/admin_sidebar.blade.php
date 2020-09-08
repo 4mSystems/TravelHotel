@@ -15,6 +15,19 @@
 
             </li>
 
+            
+
+            @if(Auth::user()->type == "provider")
+            <li class=" nav-item">
+                <a href="{{url('ads')}}"><i class="icon-users"></i>
+                    <span data-i18n="nav.dash.main"
+                            class="menu-title">{{trans('admin.nav_ads')}}</span></a>
+
+            </li>
+            @endif
+            
+            @if(Auth::user()->type == "super admin")
+
             <li class=" nav-item">
                 <a href="{{url('super_Admin')}}"><i class="icon-users"></i>
                     <span data-i18n="nav.dash.main"
@@ -28,17 +41,6 @@
                             class="menu-title">{{trans('admin.nav_Provider')}}</span></a>
 
             </li>
-
-            @if(Auth::user()->type == "provider")
-            <li class=" nav-item">
-                <a href="{{url('ads')}}"><i class="icon-users"></i>
-                    <span data-i18n="nav.dash.main"
-                            class="menu-title">{{trans('admin.nav_ads')}}</span></a>
-
-            </li>
-            @endif
-            
-            @if(Auth::user()->type == "super admin")
             <li class=" nav-item">
                 <a href="{{url('ads_admin')}}"><i class="icon-users"></i>
                     <span data-i18n="nav.dash.main"

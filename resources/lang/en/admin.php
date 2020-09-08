@@ -67,6 +67,7 @@ return [
     'status_ad' => 'Ad Status',
     
     'image' => 'Image',
+    'images' => 'Images',
     'description' => 'description',
     'choose_Category' => 'choose Category',
     'ads_showImages' => 'show ad Images',
@@ -99,6 +100,10 @@ return [
     'photoAddedSuccess' => 'Image added Successfuly',
     'adsAddedSuccess' => 'Ad added Successfuly',
     'adsExisting' => 'This product have Ads Already',
+    'Erorr_Login' => 'You can`t Access  This Site',
+    'loginWarning' => 'You Want to login First',
+    
+    
     
     
 
