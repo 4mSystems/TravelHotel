@@ -22,6 +22,8 @@ Route::post('login', 'API\AuthController@login');
 Route::post('logout','API\AuthController@logout');
 
 Route::post('register','API\registerApiController@store');
+Route::post('update_profile','API\registerApiController@update_profile');
+Route::post('userProfile','API\registerApiController@user_Profile');
 
 
 Route::post('all_ads','API\AdsApiController@all_ads');

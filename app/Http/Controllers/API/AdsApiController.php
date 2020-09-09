@@ -14,7 +14,7 @@ use App\User;
 class AdsApiController extends Controller
 {
     public $LoginWarning ='You Want to login First !';
-    
+    public $i =1;
 
     public function sendResponse($code = null, $msg = null, $data = null)
     {
@@ -51,15 +51,13 @@ class AdsApiController extends Controller
     }
     public function all_ads(Request $request)
     {
-        $rules = [
+        $input = $request->all();
+        $validate = $this->makeValidate($input,[
             'provider_id' => 'required',
             'api_token' => 'required',
             
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->sendResponse(401, $this->LoginWarning, null);
-        } else {
+            ]);
+            if (!is_array($validate)) {
 
             $api_token = $request->input('api_token');
             $user = User::where('api_token',$api_token)->first();
@@ -74,22 +72,34 @@ class AdsApiController extends Controller
         }else{
             return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
         }
-        }
-
+    }else {
+        return $this->sendResponse(403, $validate, null);
     }
 
+    }
+    public function MoveImage($request_file)
+    {
+        
+        $file = $request_file;
+        $name = $file->getClientOriginalName();
+        $ext = $file->getClientOriginalExtension();
+        // Move Image To Folder ..
+        $fileNewName = 'img_' .$this->i . time() .'.' . $ext;
+        $file->move(public_path('uploads/ads_images'), $fileNewName);
+        $this->i =$this->i+1;
+        return $fileNewName;
+     
+    }
     public function ads_withCat(Request $request)
     {
-        $rules = [
+        $input = $request->all();
+        $validate = $this->makeValidate($input,[
             'cat_id' => 'required',
             'provider_id' => 'required',
             'api_token' => 'required',
             
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->sendResponse(401, $this->LoginWarning, null);
-        } else {
+            ]);
+            if (!is_array($validate)) {
 
             $api_token = $request->input('api_token');
             $user = User::where('api_token',$api_token)->first();
@@ -107,23 +117,22 @@ class AdsApiController extends Controller
         }else{
             return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
         }
-        }
+    }else {
+        return $this->sendResponse(403, $validate, null);
+    }
 
     }
    
 
     public function ad_with_id(Request $request)
     {
-        $rules = [
+        $input = $request->all();
+        $validate = $this->makeValidate($input,[
             'ad_id' => 'required',
             'api_token' => 'required',
             
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->sendResponse(401,$this->LoginWarning, null);
-        } else {
-
+            ]);
+            if (!is_array($validate)) {
             $api_token = $request->input('api_token');
             $user = User::where('api_token',$api_token)->first();
             if($user != null){
@@ -143,32 +152,30 @@ class AdsApiController extends Controller
         }else{
             return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
         }
-        }
+    }else {
+        return $this->sendResponse(403, $validate, null);
+    }
 
     }
 
     public function store_ad(Request $request)
     {
         $input = $request->all();
-
-        $rules = [
+       
+        $validate = $this->makeValidate($input,[
                 'api_token' => 'required',
                 'provider_id' => 'required',
             'name' => 'required',
             'phone' => 'numeric|required',
             'image' => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp',
+            'imageAD' => 'sometimes|nullable',
             'description' => 'required',
             'address' => '',
             'start_at'=>'required',
             'end_at'=>'required',
             'category_id'=>'required',
-        ];
-
-                $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->sendResponse(401,$this->LoginWarning, null);
-        } else {
-
+            ]);
+            if (!is_array($validate)) {
             $api_token = $request->input('api_token');
             $user = User::where('api_token',$api_token)->first();
             if($user != null){
@@ -191,13 +198,29 @@ class AdsApiController extends Controller
             }
 
             $ad = ad::create($input);
+            $ad->save();
+
+            $provider_id = $request->input('provider_id');
+            foreach ($input['imageAD'] as $ima) {
+
+            $ads_image = new ads_image();
+            $ads_image->image =$this->MoveImage($ima);
+            $ads_image->ads_id = $ad->id;
+            $ads_image->provider_id = $provider_id;
 
 
-            return $this->sendResponse(200, 'Data Added Successfully', $ad);
+            $ads_image->save();
+
+        }
+       
+
+            return $this->sendResponse(200, 'Data Added Successfully', array('ad'=>$ad,'ad_images'=>$ads_image));
         }else{
             return $this->sendResponse(403, $this->LoginWarning,null);
         }
-        }
+    }else {
+        return $this->sendResponse(403, $validate, null);
+    }
 
     }
 
@@ -205,7 +228,8 @@ class AdsApiController extends Controller
     {
         $input = $request->all();
         $id = $request->ad_id;
-        $rules = [
+        $validate = $this->makeValidate($input,
+            [
                 'api_token' => 'required',
                 'ad_id' => 'required',
             'name' => 'required',
@@ -216,12 +240,9 @@ class AdsApiController extends Controller
             'start_at'=>'required',
             'end_at'=>'required',
             'category_id'=>'required',
-        ];
+            ]);
 
-                $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->sendResponse(401, $this->LoginWarning, null);
-        } else {
+        if (!is_array($validate)) {
 
             $api_token = $request->input('api_token');
             $user = User::where('api_token',$api_token)->first();
@@ -249,26 +270,25 @@ class AdsApiController extends Controller
 
             return $this->sendResponse(200, 'Your Ad Updated ', $ad);
         }else{
-            return $this->sendResponse(403, $this->LoginWarning,null);
+            return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
         }
+       
+        }else {
+            return $this->sendResponse(403, $validate, null);
         }
 
     }
 
     public function delete_ad(Request $request)
     {
+
         $input = $request->all();
         $id = $request->ad_id;
-        $rules = [
+        $validate = $this->makeValidate($input,[
                 'api_token' => 'required',
                 'ad_id' => 'required',
-        ];
-
-                $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->sendResponse(401, $this->LoginWarning, null);
-        } else {
-
+                ]);
+                if (!is_array($validate)) {
             $api_token = $request->input('api_token');
             $user = User::where('api_token',$api_token)->first();
             if($user != null){
@@ -281,7 +301,9 @@ class AdsApiController extends Controller
         }else{
             return $this->sendResponse(403, $this->LoginWarning,null);
         }
-        }
+    }else {
+        return $this->sendResponse(403, $validate, null);
+    }
 
     }
 }

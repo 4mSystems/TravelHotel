@@ -31,4 +31,7 @@ class ad extends Model
         return $this->hasOne('App\Category', 'id', 'category_id');
 
     }
+
+
+  
 }

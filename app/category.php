@@ -9,4 +9,5 @@ class category extends Model
     protected $fillable = [
         'name', 'provider_id'
     ];
+
 }

@@ -4,9 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Validator;
 use App\User;
+use App\customer_category;
 
 class registerApiController extends Controller
 {
@@ -41,6 +44,34 @@ class registerApiController extends Controller
         }
     }
 
+    public function user_Profile(Request $request)
+    {
+        $rules = [
+
+            'api_token' => 'required',
+            'user_id' => 'required',
+
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->sendResponse(401, 'يرجى تسجيل الدخول ', null);
+        } else {
+
+            $api_token = $request->input('api_token');
+            $user_id = $request->input('user_id');
+            $user = User::where('api_token',$api_token)->first();
+            if($user != null){
+
+            $UserData =User::where('id',$user_id)->first();
+
+           return $this->sendResponse(200, 'تم اظهار معلومات المستخدم', $UserData);
+        }else{
+            return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
+        }
+       
+        }
+
+    }
      public function store(Request $request)
     {
         $input = $request->all();
@@ -55,6 +86,8 @@ class registerApiController extends Controller
                 'payment_method'=>'required',
                 'type'=>'required',
                 'card_number'=>'sometimes|nullable',
+                'categories'=>'required',
+                
             ]);
 
         if (!is_array($validate)) {
@@ -71,6 +104,11 @@ class registerApiController extends Controller
             $api_token = $user->api_token;
             $user->save();
 
+
+        foreach ($input['categories'] as $cat) {
+            customer_category::create(['user_id' => $user->id, 'category_id' => $cat]);
+        }
+
             return $this->sendResponse(200, 'تم أضافة حساب جديد بنجاح', $user);
         } else {
             return $this->sendResponse(403, $validate, null);
@@ -78,48 +116,51 @@ class registerApiController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function update_profile(Request $request)
     {
-        //
-    }
+        $input = $request->all();
+        $id = $request->input('user_id');
+       
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+            $validate = $this->makeValidate($input,
+            [
+                'api_token' => 'required',
+                'name' => 'required|unique:users,name,' . $id,
+                'user_id' => 'required',
+                'phone' => 'numeric|unique:users,phone,' . $id,
+                'company_name' => 'required',
+                'email' => 'required|unique:users,email,' . $id,
+                'password' => 'required|min:6',
+                'payment_method'=>'required',
+                'card_number'=>'sometimes|nullable',
+            ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            if (!is_array($validate)) {
+
+            $api_token = $request->input('api_token');
+          
+            $user = User::where('api_token',$api_token)->first();
+            if($user != null){
+
+            
+        if($request['password'] != null){
+
+            $pass= Hash::make(request('password'));
+            $input['password'] = $pass;
+        }else
+        {
+            unset($input['password']);
+        }
+        $User = User::find(intval($id))->update($input);
+
+           return $this->sendResponse(200, 'تم التعديل', $User);
+        }else{
+            return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
+        }
+       
+        }else {
+            return $this->sendResponse(403, $validate, null);
+        }
     }
 }

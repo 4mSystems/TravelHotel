@@ -18,13 +18,13 @@ class AuthController extends Controller
         $this->objectName = $model;
 
     }
-    public function sendResponse($code=null,$msg=null, $data = null)
+    public function sendResponse($code = null, $msg = null, $data = null)
     {
 
         return response(
             [
                 'code' => $code,
-                'msg'=>$msg,
+                'msg' => $msg,
                 'data' => $data
             ]
         );
@@ -41,20 +41,24 @@ class AuthController extends Controller
         return $valArr;
     }
 
+    public function makeValidate($inputs, $rules)
+    {
 
+        $validator = Validator::make($inputs, $rules);
+        if ($validator->fails()) {
+            return $this->validationErrorsToString($validator->messages());
+        } else {
+            return true;
+        }
+    }
     public function login(Request $request)
     {
-        $rules = [
+        $input = $request->all();
+        $validate = $this->makeValidate($input,[
             'email'=>'required|email',
             'password'=>'required',
-        ];
-        $validator = Validator::make($request->all(),$rules);
-        if($validator->fails())
-        {
-            return $this->sendResponse(401, $this->validationErrorsToString($validator->messages()),null);
-        }
-        else
-        {
+            ]);
+            if (!is_array($validate)) {
 
             if(Auth::attempt([
                 'email'=>$request->input('email'),
@@ -82,25 +86,24 @@ class AuthController extends Controller
             {
                 return $this->sendResponse(401, 'البريد الالكترونى او الرقم السري غير صحيح',null);
             }
+        }else {
+            return $this->sendResponse(403, $validate, null);
         }
-    }
+    
+        }
 
 
 
 
 
     public function logout(Request $request){
-        $rules = [
+        $input = $request->all();
+        $validate = $this->makeValidate($input,[
             'api_token'=>'required',
 
-        ];
-        $validator = Validator::make($request->all(),$rules);
-        if($validator->fails())
-        {
-            return $this->sendResponse(401, 'يرجى تسجيل الدخول ',null);
-        }
-        else
-        {
+            ]);
+            if (!is_array($validate)) {
+
             $api_token =$request->input('api_token');
             $user = User::where('api_token',$api_token)->first();
 
@@ -116,9 +119,11 @@ class AuthController extends Controller
             }else{
                 return $this->sendResponse(401, 'يرجى تسجيل الدخول ',null);
             }
-        }
+       }else {
+        return $this->sendResponse(403, $validate, null);
     }
 
+    }
 
 
 

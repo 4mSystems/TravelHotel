@@ -64,19 +64,16 @@ class AdsImagesApiController extends Controller
     public function store_ad_images (Request $request)
     {
         $input = $request->all();
-
-        $rules = [
+        $validate = $this->makeValidate($input,[
                 'api_token' => 'required',
                 'provider_id' => 'required',
                 'ads_id' => 'required',
                 
                 'image' => 'required',
-        ];
+                ]);
 
-                $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->sendResponse(401,$this->LoginWarning, null);
-        } else {
+
+                if (!is_array($validate)) {
 
             $api_token = $request->input('api_token');
             $provider_id = $request->input('provider_id');
@@ -98,25 +95,24 @@ class AdsImagesApiController extends Controller
         }else{
             return $this->sendResponse(403, $this->LoginWarning,null);
         }
-        }
-
+    }else {
+        return $this->sendResponse(403, $validate, null);
     }
+}
 
     
 
     public function delete_ad_images(Request $request)
     {
-        $input = $request->all();
         $id = $request->ad_image_id;
-        $rules = [
+        $input = $request->all();
+        $validate = $this->makeValidate($input,[
                 'api_token' => 'required',
                 'ad_image_id' => 'required',
-        ];
+                ]);
 
-                $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->sendResponse(401, $this->LoginWarning, null);
-        } else {
+
+                if (!is_array($validate)) {
 
             $api_token = $request->input('api_token');
             $user = User::where('api_token',$api_token)->first();
@@ -134,7 +130,8 @@ class AdsImagesApiController extends Controller
         }else{
             return $this->sendResponse(403, $this->LoginWarning,null);
         }
-        }
-
+    }else {
+        return $this->sendResponse(403, $validate, null);
     }
+}
 }
