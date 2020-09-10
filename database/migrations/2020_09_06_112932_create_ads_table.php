@@ -20,7 +20,7 @@ class CreateAdsTable extends Migration
             $table->string('description');
             $table->string('phone');
             $table->string('address');
-            $table->enum('status',['pending','accepted','rejected','expired'])->default('pindding');
+            $table->enum('status',['pending','accepted','rejected','expired'])->default('pending');
             $table->time('start_at');
             $table->time('end_at');
             $table->bigInteger('provider_id')->unsigned()->nullable();

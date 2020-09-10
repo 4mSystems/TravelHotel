@@ -59,10 +59,12 @@
                             <strong>{{trans('admin.company_name')}}</strong>
                             {{ Form::text('company_name',$user_data->company_name,["class"=>"form-control"  ]) }}
                         </div>
+                        <div class="form-group">
+                        <strong>{{trans('admin.payment_method')}}</strong>
 
-                        {!! Form::label('payment_method', 'payment method') !!}
                         {!! Form::select('payment_method', ['cash'=>'cash','visa'=>'visa'], $user_data->payment_method, ['class'=>'form-control',null]) !!}
 
+                        </div>
                         <div class="form-group">
                             <strong>{{trans('admin.card_number')}}</strong>
                             {{ Form::text('card_number',$user_data->card_number,["class"=>"form-control"  ]) }}

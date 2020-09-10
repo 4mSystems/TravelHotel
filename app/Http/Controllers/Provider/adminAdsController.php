@@ -26,10 +26,9 @@ class adminAdsController extends Controller
 
     public function getAdsByStatus($status)
     {
-        dd('here');
         session()->put('reser_status', $status);
-
-        $ads = ad::where('provider_id','!=', null)->where('status', $status)->paginate(10);
+                // dd($status);
+        $ads = ad::where('provider_id','!=', null)->where('status', $status)->get();
 
         return view('admin_ads.ads_admin_page',\compact('ads'));
 

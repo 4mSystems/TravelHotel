@@ -56,11 +56,11 @@
                         <a class="dropdown-item"
                            href="{{url('ads_admin')}}">{{trans('admin.all')}}</a>
                            <a class="dropdown-item"
-                            href="{{url('ads_admin/pending')}}">{{trans('admin.pending')}}</a>
+                            href="{{url('ads_admins/pending')}}">{{trans('admin.pending')}}</a>
                         <a class="dropdown-item"
-                           href="{{url('ads_admin/accepted')}}">{{trans('admin.accepted')}}</a>
+                           href="{{url('ads_admins/accepted')}}">{{trans('admin.accepted')}}</a>
                         <a class="dropdown-item"
-                           href="{{url('ads_admin/rejected')}}">{{trans('admin.rejected')}}</a>
+                           href="{{url('ads_admins/rejected')}}">{{trans('admin.rejected')}}</a>
                         
                     </div>
                 </div>

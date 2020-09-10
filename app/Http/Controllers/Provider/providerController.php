@@ -18,7 +18,7 @@ class providerController extends Controller
     public function index()
     {
 
-        $users = User::where('type','provider')->limit(10)->get();
+        $users = User::where('type','provider')->get();
         return view('provider.providers',\compact('users'));
 
     }

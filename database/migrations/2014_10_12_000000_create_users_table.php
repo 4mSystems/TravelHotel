@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('api_token')->nullable();
             $table->string('phone')->nullable();
             $table->enum('payment_method',['cash','visa'])->default('cash');
-            $table->string('card_number');
+            $table->string('card_number')->nullable();
             $table->enum('type',['super admin','provider','customer'])->default('super admin');
             $table->enum('status',['active','deActive'])->default('active');
             $table->string('company_name');
