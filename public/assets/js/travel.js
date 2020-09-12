@@ -16,7 +16,7 @@ $(document).ready(function () {
         method = $('#payment').val();
       
         if (method == 'cash') {
-            $('#cardPanel').empty();
+            // $('#cardPanel').empty();
            $("#cardPanel").hide();
            console.log(method);
 

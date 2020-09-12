@@ -63,7 +63,7 @@
                         {!! Form::label('payment_method', 'payment method') !!}
                         {!! Form::select('payment_method', ['cash'=>'cash','visa'=>'visa'], $user_data->payment_method, ['class'=>'form-control',null]) !!}
 
-                        <div class="form-group">
+                        <div class="form-group" id="cardPanel2">
                             <strong>{{trans('admin.card_number')}}</strong>
                             {{ Form::text('card_number',$user_data->card_number,["class"=>"form-control"  ]) }}
                         </div>
@@ -76,6 +76,10 @@
             </div>
         </div>
     </div>
+
+@endsection
+@section('scripts')
+    <script src="{{url('assets/js/travel_edit.js') }}"></script>
 
 @endsection
 
