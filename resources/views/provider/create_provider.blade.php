@@ -68,7 +68,7 @@
                                     <div class="form-group">
                                         <strong>{{trans('admin.payment_method')}}</strong><br>
 
-                                        <select id="payment_method" name="payment_method" required
+                                        <select id="payment" name="payment_method" required
                                                 class="form-control">
                                             <option value="cash">{{trans('admin.cash')}}</option>
                                             <option value="visa">{{trans('admin.visa')}}</option>
@@ -76,7 +76,7 @@
                                         <span class="text-danger" id="type_error"></span>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group" id="cardPanel">
                                         <strong>{{trans('admin.card_number')}}</strong>
                                         {{ Form::number('card_number',old('card_number'),["class"=>"form-control"]) }}
                                     </div>
@@ -92,6 +92,11 @@
             </div>
         </div>
     </div>
+
+@endsection
+
+@section('scripts')
+    <script src="{{url('assets/js/travel.js') }}"></script>
 
 @endsection
 

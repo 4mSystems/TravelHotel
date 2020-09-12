@@ -48,13 +48,11 @@ class SuperAdminController extends Controller
             'company_name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|min:6',
-            'payment_method'=>'required',
-            'card_number'=>'',
-
         ]);
 
     $data['password'] = Hash::make(request('password'));
     $data['type'] = "super admin";
+    $data['payment_method'] = "cash";
     $data['added_by'] = Auth::user()->id;
     $user = User::create($data);
     $user->save();
@@ -101,8 +99,6 @@ class SuperAdminController extends Controller
             'email' => 'required|unique:users,email,'.$id,
             'phone' => 'numeric|required|unique:users,phone,'.$id,
             'company_name' => 'required',
-            'payment_method' => 'required',
-            'card_number' => '',
             'password' => 'sometimes|nullable|min:6',
         ]);
         if($request['password'] != null){

@@ -41,6 +41,9 @@ class providerController extends Controller
      */
     public function store(Request $request)
     {
+        $payment_method = $request->input('payment_method');     
+
+        if($payment_method == 'visa') {
         $data = $this->validate(\request(),
         [
             'name' => 'required|unique:users',
@@ -49,10 +52,21 @@ class providerController extends Controller
             'email' => 'required|unique:users',
             'password' => 'required|min:6',
             'payment_method'=>'required',
-            'card_number'=>'',
+            'card_number'=>'required',
 
         ]);
-
+    }
+else if($payment_method == 'cash') {
+    $data = $this->validate(\request(),
+    [
+        'name' => 'required|unique:users',
+        'phone' => 'numeric|required|unique:users',
+        'company_name' => 'required',
+        'email' => 'required|unique:users',
+        'password' => 'required|min:6',
+        'payment_method'=>'required',
+    ]);
+}
     $data['password'] = Hash::make(request('password'));
     $data['type'] = "provider";
     $data['added_by'] = Auth::user()->id;
@@ -95,6 +109,9 @@ class providerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $payment_method = $request->input('payment_method');     
+        
+        if($payment_method == 'visa') {
         $data = $this->validate(\request(),
         [
             'name' => 'required|unique:users,name,' . $id,
@@ -105,6 +122,18 @@ class providerController extends Controller
             'card_number' => '',
             'password' => 'sometimes|nullable|min:6',
         ]);
+            }
+                else if($payment_method == 'cash') {
+            $data = $this->validate(\request(),
+            [
+                'name' => 'required|unique:users,name,' . $id,
+                'email' => 'required|unique:users,email,'.$id,
+                'phone' => 'numeric|required|unique:users,phone,'.$id,
+                'company_name' => 'required',
+                'payment_method' => 'required',
+                'password' => 'sometimes|nullable|min:6',
+            ]);
+        }
         if($request['password'] != null){
 
 
