@@ -70,7 +70,7 @@ return [
     'images' => 'Images',
     'description' => 'description',
     'choose_Category' => 'choose Category',
-    'ads_showImages' => 'show ad Images',
+    'ads_showImages' => 'Ad Images',
     'ads_image_deleteChoosen' => 'Delete Choosen',
     'ad_images_choose' => 'Choose Ad Images',
     'ad_photos' => 'Ad Images',

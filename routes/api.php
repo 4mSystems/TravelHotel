@@ -33,11 +33,19 @@ Route::post('delete_ad','API\AdsApiController@delete_ad');
 
 Route::post('ads_WithCat','API\AdsApiController@ads_WithCat');
 Route::post('ad_with_id','API\AdsApiController@ad_with_id');
+Route::post('change_status','API\AdsApiController@change_status');
+
 
 Route::post('all_ad_images','API\AdsImagesApiController@all_ad_images');
 Route::post('store_ad_images','API\AdsImagesApiController@store_ad_images');
 Route::post('delete_ad_images','API\AdsImagesApiController@delete_ad_images');
 
 Route::post('categories','API\CategoryApiController@index');
+
+Route::post('settings','API\settingsApiController@index');
+Route::post('update_settings','API\settingsApiController@update');
+
+
+
 
 

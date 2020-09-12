@@ -22,7 +22,7 @@
                 <li class="breadcrumb-item">
                     <a href="{{url('home')}}">{{trans('admin.home')}}</a>
                 </li>
-                <li class="breadcrumb-item"> {{trans('admin.nav_ads')}}
+                <li class="breadcrumb-item"> {{trans('admin.nav_ads_admin')}}
                 </li>
 
             </ol>

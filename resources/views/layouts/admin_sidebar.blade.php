@@ -56,7 +56,7 @@
             </li>
 
             <li class=" nav-item">
-                <a href="{{url('notifications')}}"><i class="icon-users"></i>
+                <a href="#"><i class="icon-users"></i>
                     <span data-i18n="nav.dash.main"
                             class="menu-title">{{trans('admin.nav_send_notif')}}</span></a>
 

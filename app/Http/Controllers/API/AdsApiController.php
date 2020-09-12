@@ -66,9 +66,10 @@ class AdsApiController extends Controller
             
             $ad_withCat =ad::where('status','accepted')
             ->where('provider_id',$provider_id)
-            ->with('category')->get();
+            ->with('category')
+            ->with('getUser')->get();
            
-            return $this->sendResponse(200, 'تم  اظهار الاعلانات بالنصنيف', $ad_withCat);
+            return $this->sendResponse(200, 'تم  اظهار الاعلانات ', $ad_withCat);
         }else{
             return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
         }
@@ -111,7 +112,8 @@ class AdsApiController extends Controller
             $ad_withCat =ad::where('status','accepted')
             ->where('category_id',$cat_id)
             ->where('provider_id',$provider_id)
-            ->with('category')->get();
+            ->with('category')
+            ->with('getUser')->get();
            
             return $this->sendResponse(200, 'تم  اظهار الاعلانات بالنصنيف', $ad_withCat);
         }else{
@@ -141,7 +143,9 @@ class AdsApiController extends Controller
             
             $ad_withID =ad::where('status','accepted')
             ->where('id',$ad_id)
-            ->with('category')->get();
+            ->with('category')
+            ->with('getUser')
+            ->get();
             if(count($ad_withID) != 0){
             $adImages_withID =ads_image::where('ads_id',$ad_id)
             ->with('ads')->get();
@@ -179,7 +183,8 @@ class AdsApiController extends Controller
             $api_token = $request->input('api_token');
             $user = User::where('api_token',$api_token)->first();
             if($user != null){
-
+                // dd($user->ads_count);
+                if($user->ads_count == '0'){
 
             if ($request['image'] != null) {
                 // This is Image Information ...
@@ -212,9 +217,17 @@ class AdsApiController extends Controller
             $ads_image->save();
 
         }
-       
+       //Update user for taken one ad free
+        $inputUser['ads_count'] = "1";
+
+        User::find(intval($provider_id))->update($inputUser);
+      
 
             return $this->sendResponse(200, 'Data Added Successfully', array('ad'=>$ad,'ad_images'=>$ads_image));
+    }else{
+        return $this->sendResponse(403, 'you have take Ad free once , you should pay',null);
+    }
+        
         }else{
             return $this->sendResponse(403, $this->LoginWarning,null);
         }
@@ -269,6 +282,47 @@ class AdsApiController extends Controller
 
 
             return $this->sendResponse(200, 'Your Ad Updated ', $ad);
+        }else{
+            return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
+        }
+       
+        }else {
+            return $this->sendResponse(403, $validate, null);
+        }
+
+    }
+
+ 
+
+    public function change_status(Request $request)
+    {
+        $input = $request->all();
+        $id = $request->ad_id;
+        $validate = $this->makeValidate($input,
+            [
+                'api_token' => 'required',
+                'ad_id' => 'required',
+            ]);
+
+        if (!is_array($validate)) {
+
+            $api_token = $request->input('api_token');
+            $user = User::where('api_token',$api_token)->first();
+            if($user != null){
+
+                $ad_selectd = ad::where('id',$id)->first();
+// dd($ad_selectd->status);
+                if($ad_selectd->status =='rejected'){
+
+                    return $this->sendResponse(403, 'برجاء دفع نصف المبلغ لاعاده الاعلان للظهور',null);
+
+                }else if($ad_selectd->status =='accepted'){
+
+                    $input['status'] = 'rejected';
+                    $ad = ad::find(intval($id))->update($input);
+                    return $this->sendResponse(200, 'Your Ad Updated to Deactived ', $ad);
+                }     
+    
         }else{
             return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
         }

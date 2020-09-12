@@ -66,6 +66,7 @@ else if($payment_method == 'cash') {
         'password' => 'required|min:6',
         'payment_method'=>'required',
     ]);
+    $data['card_number'] = "";
 }
     $data['password'] = Hash::make(request('password'));
     $data['type'] = "provider";

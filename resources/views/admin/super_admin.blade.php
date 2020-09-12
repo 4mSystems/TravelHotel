@@ -76,7 +76,9 @@
                                             <td class="text-lg-center">{{$user->phone}}</td>
                                             <td class="text-lg-center">{{$user->company_name}}</td>
 
-                                            <td class="text-lg-center"><a class='btn btn-raised btn-success btn-sml'
+                                            <td class="text-lg-center">
+                                            
+                                            <a class='btn btn-raised btn-success btn-sml'
                                                                           href=" {{url('super_Admin/'.$user->id.'/edit')}}"><i
                                                         class="icon-edit"></i></a>
 

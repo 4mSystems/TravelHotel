@@ -8,7 +8,8 @@ class ad extends Model
 {
     protected $fillable = ['name', 'image', 'description', 'phone'
         , 'address', 'status', 'start_at', 'end_at'
-        , 'provider_id', 'category_id'];
+        , 'provider_id', 'category_id','title'
+    ];
 
         public function getImageAttribute($img)
     {

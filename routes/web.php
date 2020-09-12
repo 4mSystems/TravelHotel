@@ -38,7 +38,7 @@ Route::get('change_status_Reject/{id}/status', 'Provider\AdsController@reject_st
 
 Route::resource('ads_admin', 'Provider\adminAdsController');
 
-Route::get('ads_admin/{status}', 'Provider\adminAdsController@getAdsByStatus');
+Route::get('ads_admins/{status}', 'Provider\adminAdsController@getAdsByStatus');
 Route::get('BlockProvider/{provider_id}', 'Provider\adminAdsController@block_user');
 
 Route::resource('category', 'Provider\categoryController');

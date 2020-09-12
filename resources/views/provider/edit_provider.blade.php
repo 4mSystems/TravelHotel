@@ -59,13 +59,18 @@
                             <strong>{{trans('admin.company_name')}}</strong>
                             {{ Form::text('company_name',$user_data->company_name,["class"=>"form-control"  ]) }}
                         </div>
+                        <div class="form-group">
+                        <strong>{{trans('admin.payment_method')}}</strong>
 
-                        {!! Form::label('payment_method', 'payment method') !!}
-                        {!! Form::select('payment_method', ['cash'=>'cash','visa'=>'visa'], $user_data->payment_method, ['class'=>'form-control',null]) !!}
-
-                        <div class="form-group" id="cardPanel2">
+                        <!-- {!! Form::select('payment_method', ['cash'=>'cash','visa'=>'visa'], $user_data->payment_method, ['class'=>'form-control',null]) !!} -->
+                        <select id="payment" name="payment_method" required class="form-control">
+                                            <option value="cash">{{trans('admin.cash')}}</option>
+                                            <option value="visa">{{trans('admin.visa')}}</option>
+                                        </select>
+                        <div class="form-group" id="Panel">
                             <strong>{{trans('admin.card_number')}}</strong>
-                            {{ Form::text('card_number',$user_data->card_number,["class"=>"form-control"  ]) }}
+                            <input name="card_number" id="cardEdite" class="form-control" value="{{$user_data->card_number}}"> </input>
+                            <!-- {{ Form::text('card_number',$user_data->card_number,["class"=>"form-control"  ]) }} -->
                         </div>
 
                       

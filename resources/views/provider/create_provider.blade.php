@@ -78,7 +78,8 @@
 
                                     <div class="form-group" id="cardPanel">
                                         <strong>{{trans('admin.card_number')}}</strong>
-                                        {{ Form::number('card_number',old('card_number'),["class"=>"form-control"]) }}
+                                        <input name="card_number" id="card" class="form-control" > </input>
+                                 
                                     </div>
 
                                     {{ Form::submit( trans('admin.public_Add') ,['class'=>'btn btn-success btn-min-width mr-1 mb-1','style'=>'margin:10px']) }}

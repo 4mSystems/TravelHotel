@@ -18,7 +18,7 @@ class SuperAdminController extends Controller
     public function index()
     {
 
-        $users = User::where('type','super admin')->limit(10)->get();
+        $users = User::where('type','super admin')->get();
         return view('admin.super_admin',\compact('users'));
 
     }

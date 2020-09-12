@@ -56,11 +56,11 @@
                         <a class="dropdown-item"
                            href="{{url('ads_admin')}}">{{trans('admin.all')}}</a>
                            <a class="dropdown-item"
-                            href="{{url('ads_admin/pending')}}">{{trans('admin.pending')}}</a>
+                            href="{{url('ads_admins/pending')}}">{{trans('admin.pending')}}</a>
                         <a class="dropdown-item"
-                           href="{{url('ads_admin/accepted')}}">{{trans('admin.accepted')}}</a>
+                           href="{{url('ads_admins/accepted')}}">{{trans('admin.accepted')}}</a>
                         <a class="dropdown-item"
-                           href="{{url('ads_admin/rejected')}}">{{trans('admin.rejected')}}</a>
+                           href="{{url('ads_admins/rejected')}}">{{trans('admin.rejected')}}</a>
                         
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                                         <tr>
                                             <th scope="row" class="text-lg-center">{{$ad->id}}</th>
                                             <th scope="row" class="text-lg-center">
-                                            <a href="">{{$ad->getUser->name}}</a>
+                                            {{$ad->getUser->name}}
                                             </th>
                                             <th scope="row" class="text-lg-center">
                                             <a class='btn btn-raised btn-red btn-sml'
@@ -137,10 +137,10 @@
                                             <a class='btn btn-raised btn-success btn-sml'
                                                                           href=" {{url('ads/'.$ad->id.'/images')}}"><i
                                                         ></i>{{trans('admin.images')}}</a>
-                                            <a class='btn btn-raised btn-success btn-sml'
+                                            <!-- <a class='btn btn-raised btn-success btn-sml'
                                                                           href=" {{url('ads/'.$ad->id.'/edit')}}"><i
-                                                        class="icon-edit"></i></a>
-
+                                                        class="icon-edit"></i></a> -->
+                                                        @if($ad->status == 'finished')
                                                 <form method="get" id='delete-form-{{ $ad->id }}'
                                                       action="{{url('ads/'.$ad->id.'/delete')}}"
                                                       style='display: none;'>
@@ -162,6 +162,7 @@
 
 
                                                 </button>
+                                                @endif
                                             </td>
 
                                         </tr>

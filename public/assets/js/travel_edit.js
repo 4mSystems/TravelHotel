@@ -1,14 +1,17 @@
 $(document).ready(function () {
 
     var method;
-    $("#cardPanel2").hide();
+    $("#Panel").hide();
     method = $('#payment_method').val();
+    console.log(method);
+    
     if (method == 'cash') {
-        // $('#cardPanel2').empty();
-       $("#cardPanel2").hide();
+        console.log(method);
+       $("#Panel").hide();
 
     }  else if (method == 'visa') {
-    $("#cardPanel2").show();
+        console.log(method);
+    $("#Panel").show();
 }
 
 
@@ -16,13 +19,14 @@ $(document).ready(function () {
         method = $('#payment_method').val();
       
         if (method == 'cash') {
-            // $('#cardPanel2').empty();
-           $("#cardPanel2").hide();
            console.log(method);
+            
+           $("#Panel").hide();
 
         } else if (method == 'visa') {
-        $("#cardPanel2").show();
         console.log(method);
+            
+        $("#Panel").show();
         }
 
 
