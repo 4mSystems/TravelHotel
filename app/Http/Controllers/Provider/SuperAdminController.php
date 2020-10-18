@@ -67,17 +67,27 @@ class SuperAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show_ad_cost()
     {
-        //
+        $user_data = User::where('type', 'super admin')->first();
+        return view('admin.edit_ad_cost', \compact('user_data'));
+    }
+    
+    public function update_ad_cost(Request $request, $id)
+    {
+        $data = $this->validate(\request(),
+        [
+            'ad_cost' => 'required'
+        ]);
+
+
+    User::where('id', $id)->update($data);
+
+    session()->flash('success', trans('admin.updatSuccess'));
+
+    return redirect(url('ad_cost'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $user_data = User::where('id', $id)->first();

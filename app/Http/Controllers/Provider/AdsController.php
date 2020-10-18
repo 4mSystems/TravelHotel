@@ -34,13 +34,9 @@ class AdsController extends Controller
   
         $data = $this->validate(\request(),
         [
-            'name' => 'required',
-            'phone' => 'numeric|required',
-            'image' => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp',
+            'price' => 'numeric|required',
             'description' => 'required',
-            'address' => '',
-            'start_at'=>'required',
-            'end_at'=>'required',
+            'image' => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp',
             'category_id'=>'required',
         ]);
 
@@ -130,13 +126,9 @@ dd($input['image']);
     {
         $data = $this->validate(\request(),
         [
-            'name' => 'required',
-            'phone' => 'numeric|required',
+            'price' => 'numeric|required',
             'image' => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp',
             'description' => 'required',
-            'address' => 'required',
-            'start_at'=>'required',
-            'end_at'=>'required',
             'category_id'=>'required',
         ]);
         if ($request['image'] != null) {

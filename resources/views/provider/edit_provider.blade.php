@@ -55,23 +55,7 @@
                                                >
                                     </div>
 
-                        <div class="form-group">
-                            <strong>{{trans('admin.company_name')}}</strong>
-                            {{ Form::text('company_name',$user_data->company_name,["class"=>"form-control"  ]) }}
-                        </div>
-                        <div class="form-group">
-                        <strong>{{trans('admin.payment_method')}}</strong>
-
-                        <!-- {!! Form::select('payment_method', ['cash'=>'cash','visa'=>'visa'], $user_data->payment_method, ['class'=>'form-control',null]) !!} -->
-                        <select id="payment" name="payment_method" required class="form-control">
-                                            <option value="cash">{{trans('admin.cash')}}</option>
-                                            <option value="visa">{{trans('admin.visa')}}</option>
-                                        </select>
-                        <div class="form-group" id="Panel">
-                            <strong>{{trans('admin.card_number')}}</strong>
-                            <input name="card_number" id="cardEdite" class="form-control" value="{{$user_data->card_number}}"> </input>
-                            <!-- {{ Form::text('card_number',$user_data->card_number,["class"=>"form-control"  ]) }} -->
-                        </div>
+           
 
                       
                         {{ Form::submit( trans('admin.public_Edit') ,['class'=>'btn btn-success btn-min-width mr-1 mb-1','style'=>'margin:10px']) }}
@@ -83,8 +67,5 @@
     </div>
 
 @endsection
-@section('scripts')
-    <script src="{{url('assets/js/travel_edit.js') }}"></script>
 
-@endsection
 

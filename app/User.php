@@ -16,8 +16,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-       'id','name', 'email', 'password','phone','company_name','payment_method',
-       'card_number','type','added_by','lat','lng','address','ads_count'
+       'id','name', 'email', 'password','phone'
+       ,'image','telephone','type','status','lat','lng','address','ads_count'
+       ,'ad_cost','added_by'
     ];
 
     /**
@@ -37,9 +38,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function categories()
+    public function getImageAttribute($img)
     {
-        return $this->belongsToMany(category::class, 'customer_categories', 'user_id', 'category_id');
+        if ($img)
+            return asset('/uploads/Providers') . '/' . $img;
+        else
+            return "";
     }
 }

@@ -46,27 +46,38 @@ class CategoryApiController extends Controller
     public function index(Request $request)
     {
         $rules = [
-
             'api_token' => 'required',
-
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return $this->sendResponse(401, 'يرجى تسجيل الدخول ', null);
         } else {
-
             $api_token = $request->input('api_token');
             $user = User::where('api_token',$api_token)->first();
+            
             if($user != null){
 
             $Categories =Category::all();
 
-           return $this->sendResponse(200, 'تم اظهار المعلومات', $Categories);
+           return $this->sendResponse(200, 'تم اظهار المعلومات',array('Categories' => $Categories));
         }else{
             return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
         }
        
         }
+
+    }
+
+    public function cat_superAdmin_cost(Request $request)
+    {
+ 
+            $Categories =Category::all();
+
+            $user = User::where('type','super admin')->first();
+            $ad_cost = $user->ad_cost;
+
+           return $this->sendResponse(200, 'تم اظهار المعلومات',array('Categories' => $Categories,'ad_cost' => $ad_cost));
+       
 
     }
 

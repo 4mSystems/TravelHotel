@@ -20,12 +20,22 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Begin Hiden Routs-------------------------------->
 Route::resource('super_Admin', 'Provider\SuperAdminController');
 Route::get('super_Admin/{id}/delete', 'Provider\SuperAdminController@destroy');
+//ads Page Routs
+Route::resource('ads', 'Provider\AdsController');
+Route::get('ads/{id}/delete', 'Provider\AdsController@destroy');
+
+//end Hidden Routs --------------------------------->
+Route::get('ad_cost', 'Provider\SuperAdminController@show_ad_cost');
+Route::post('ad_cost/update/{id}', 'Provider\SuperAdminController@update_ad_cost');
+
+
 
 Route::resource('provider', 'Provider\providerController');
 Route::get('provider/{id}/delete', 'Provider\providerController@destroy');
-
 //ads Page Routs
 Route::resource('ads', 'Provider\AdsController');
 Route::get('ads/{id}/delete', 'Provider\AdsController@destroy');

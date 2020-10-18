@@ -63,9 +63,7 @@
                                 {!! Form::close() !!} -->
 
                                 <!-- <h4 class="form-section"><i class="icon-image4"></i>  {{trans('admin.ad_photos')}} ({{ count($ads_images) }}) </h4> -->
-                                <div class="card mb-3">
-                                    <div class="card-header">
-
+                         
                                     </div>
                                     <div class="card-body">
 
@@ -87,7 +85,7 @@
 
                                     </div>
 
-                                </div>
+                              
 
 
                             </div>

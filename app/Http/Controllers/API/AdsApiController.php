@@ -114,8 +114,48 @@ class AdsApiController extends Controller
             ->where('provider_id',$provider_id)
             ->with('category')
             ->with('getUser')->get();
-           
+
+            if(count($ad_withCat) != 0){
             return $this->sendResponse(200, 'تم  اظهار الاعلانات بالنصنيف', $ad_withCat);
+              }  else{
+        return $this->sendResponse(403, 'لا يوجد اعلانات',null);                
+
+    }
+        }else{
+            return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
+        }
+    }else {
+        return $this->sendResponse(403, $validate, null);
+    }
+
+    }
+
+    public function ads_with_Cat_customer(Request $request)
+    {
+        $input = $request->all();
+        $validate = $this->makeValidate($input,[
+            'cat_id' => 'required',
+            'api_token' => 'required',
+            
+            ]);
+            if (!is_array($validate)) {
+
+            $api_token = $request->input('api_token');
+            $user = User::where('api_token',$api_token)->first();
+            if($user != null){
+
+            $cat_id = $request->input('cat_id');
+
+            $ad_withCat =ad::where('status','accepted')
+            ->where('category_id',$cat_id)
+            ->with('category')
+            ->with('getUser')->get();
+           
+            if(count($ad_withCat) != 0){
+            return $this->sendResponse(200, 'تم  اظهار الاعلانات بالنصنيف', $ad_withCat);
+            }else{
+            return $this->sendResponse(403, 'لا يوجد اعلانات',null);                
+            }
         }else{
             return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
         }
@@ -141,18 +181,52 @@ class AdsApiController extends Controller
 
             $ad_id = $request->input('ad_id');
             
-            $ad_withID =ad::where('status','accepted')
-            ->where('id',$ad_id)
+            $ad_withID =ad::where('id',$ad_id)
             ->with('category')
             ->with('getUser')
             ->get();
+
             if(count($ad_withID) != 0){
+
             $adImages_withID =ads_image::where('ads_id',$ad_id)
             ->with('ads')->get();
+
+            return $this->sendResponse(200, ' تم  اظهار الاعلان بصوره',  array('ad_withID' => $ad_withID ,'adImages_withID' => $adImages_withID));
+
             }else{
                 $adImages_withID = [];
+                return $this->sendResponse(403, 'لا يوجد اعلانات',null);                
             }
-            return $this->sendResponse(200, ' تم  اظهار الاعلان بصوره',  array('ad_withID' => $ad_withID ,'adImages_withID' => $adImages_withID));
+        }else{
+            return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
+        }
+    }else {
+        return $this->sendResponse(403, $validate, null);
+    }
+
+    }
+
+    public function ads_with_provider_id(Request $request)
+    {
+        $input = $request->all();
+        $validate = $this->makeValidate($input,[
+            'provider_id' => 'required',
+            'api_token' => 'required',
+            
+            ]);
+            if (!is_array($validate)) {
+            $api_token = $request->input('api_token');
+            $user = User::where('api_token',$api_token)->first();
+            if($user != null){
+
+            $provider_id = $request->input('provider_id');
+            
+            $ads_with_provider_id =ad::where('provider_id',$provider_id)
+            ->with('category')
+            ->with('getUser')
+            ->get();
+
+            return $this->sendResponse(200, ' تم  اظهار الاعلانات ',  array('ads_with_provider_id' => $ads_with_provider_id ));
         }else{
             return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
         }
@@ -169,16 +243,12 @@ class AdsApiController extends Controller
         $validate = $this->makeValidate($input,[
                 'api_token' => 'required',
                 'provider_id' => 'required',
-            'name' => 'required',
-            'phone' => 'numeric|required',
-            'image' => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp',
-            'imageAD' => 'sometimes|nullable',
-            'description' => 'required',
-            'address' => '',
-            'start_at'=>'required',
-            'end_at'=>'required',
-            'category_id'=>'required',
-            ]);
+                'price' => 'numeric|required',
+                'image' => 'required|nullable|image|mimes:jpg,jpeg,png,gif,bmp',
+                'imageAD' => 'sometimes|nullable',
+                'description' => 'required',
+                'category_id'=>'required',
+                ]);
             if (!is_array($validate)) {
             $api_token = $request->input('api_token');
             $user = User::where('api_token',$api_token)->first();
@@ -194,7 +264,6 @@ class AdsApiController extends Controller
                 // Move Image To Folder ..
                 $fileNewName = 'img_' . time() . '.' . $ext;
                 $file->move(public_path('uploads/ads'), $fileNewName);
-    
     
                 $input['image'] = $fileNewName;
     
@@ -243,15 +312,11 @@ class AdsApiController extends Controller
         $id = $request->ad_id;
         $validate = $this->makeValidate($input,
             [
-                'api_token' => 'required',
-                'ad_id' => 'required',
-            'name' => 'required',
-            'phone' => 'numeric|required',
+            'api_token' => 'required',
+            'ad_id' => 'required',
+            'price' => 'required',
             'image' => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp',
             'description' => 'required',
-            'address' => '',
-            'start_at'=>'required',
-            'end_at'=>'required',
             'category_id'=>'required',
             ]);
 
@@ -260,8 +325,6 @@ class AdsApiController extends Controller
             $api_token = $request->input('api_token');
             $user = User::where('api_token',$api_token)->first();
             if($user != null){
-
-
             if ($request['image'] != null) {
                 // This is Image Information ...
                 $file = $request->file('image');

@@ -40,34 +40,17 @@ class providerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $payment_method = $request->input('payment_method');     
+    {   
 
-        if($payment_method == 'visa') {
         $data = $this->validate(\request(),
         [
             'name' => 'required|unique:users',
             'phone' => 'numeric|required|unique:users',
-            'company_name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|min:6',
-            'payment_method'=>'required',
-            'card_number'=>'required',
 
         ]);
-    }
-else if($payment_method == 'cash') {
-    $data = $this->validate(\request(),
-    [
-        'name' => 'required|unique:users',
-        'phone' => 'numeric|required|unique:users',
-        'company_name' => 'required',
-        'email' => 'required|unique:users',
-        'password' => 'required|min:6',
-        'payment_method'=>'required',
-    ]);
-    $data['card_number'] = "";
-}
+
     $data['password'] = Hash::make(request('password'));
     $data['type'] = "provider";
     $data['added_by'] = Auth::user()->id;
@@ -110,31 +93,15 @@ else if($payment_method == 'cash') {
      */
     public function update(Request $request, $id)
     {
-        $payment_method = $request->input('payment_method');     
-        
-        if($payment_method == 'visa') {
+
         $data = $this->validate(\request(),
         [
             'name' => 'required|unique:users,name,' . $id,
             'email' => 'required|unique:users,email,'.$id,
             'phone' => 'numeric|required|unique:users,phone,'.$id,
-            'company_name' => 'required',
-            'payment_method' => 'required',
-            'card_number' => '',
             'password' => 'sometimes|nullable|min:6',
         ]);
-            }
-                else if($payment_method == 'cash') {
-            $data = $this->validate(\request(),
-            [
-                'name' => 'required|unique:users,name,' . $id,
-                'email' => 'required|unique:users,email,'.$id,
-                'phone' => 'numeric|required|unique:users,phone,'.$id,
-                'company_name' => 'required',
-                'payment_method' => 'required',
-                'password' => 'sometimes|nullable|min:6',
-            ]);
-        }
+  
         if($request['password'] != null){
 
 

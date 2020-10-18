@@ -14,7 +14,7 @@ return [
 
     // nav
     'nav_home' => 'Dashboard',
-    'nav_add_Super_Admin' => 'Super Admins',
+    'nav_ad_cost' => 'Ad Cost',
     'nav_Provider' => 'Providers',
     'nav_ads' => 'My Advertisment',
     'nav_ads_admin' => 'Providers Advertisment',
@@ -38,7 +38,7 @@ return [
     'cash' => 'cash',
     'visa' => 'visa',
     'card_number' => 'card number',
-    'update_superadmin' => 'Edit Super Admin',
+    'update_superadmin' => 'Edit Ad Cost',
     'name' => 'name',
     'email' => 'Email',
     'phone' => 'Phone',

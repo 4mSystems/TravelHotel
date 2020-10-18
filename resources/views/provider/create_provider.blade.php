@@ -60,27 +60,6 @@
                                         {{ Form::text('phone',old('phone'),["class"=>"form-control" ,"required",'max'=>'9999999999999'   ]) }}
                                     </div>
 
-                                    <div class="form-group">
-                                        <strong>{{trans('admin.company_name')}}</strong>
-                                        {{ Form::text('company_name',old('company_name'),["class"=>"form-control"]) }}
-                                    </div>
-
-                                    <div class="form-group">
-                                        <strong>{{trans('admin.payment_method')}}</strong><br>
-
-                                        <select id="payment" name="payment_method" required
-                                                class="form-control">
-                                            <option value="cash">{{trans('admin.cash')}}</option>
-                                            <option value="visa">{{trans('admin.visa')}}</option>
-                                        </select>
-                                        <span class="text-danger" id="type_error"></span>
-                                    </div>
-
-                                    <div class="form-group" id="cardPanel">
-                                        <strong>{{trans('admin.card_number')}}</strong>
-                                        <input name="card_number" id="card" class="form-control" > </input>
-                                 
-                                    </div>
 
                                     {{ Form::submit( trans('admin.public_Add') ,['class'=>'btn btn-success btn-min-width mr-1 mb-1','style'=>'margin:10px']) }}
                                     {{ Form::close() }}
@@ -96,9 +75,5 @@
 
 @endsection
 
-@section('scripts')
-    <script src="{{url('assets/js/travel.js') }}"></script>
-
-@endsection
 
 

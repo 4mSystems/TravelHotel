@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ad extends Model
 {
-    protected $fillable = ['name', 'image', 'description', 'phone'
-        , 'address', 'status', 'start_at', 'end_at'
-        , 'provider_id', 'category_id','title'
+    protected $fillable = ['image', 'description',
+    'price','status', 'provider_id', 'category_id'
     ];
 
         public function getImageAttribute($img)

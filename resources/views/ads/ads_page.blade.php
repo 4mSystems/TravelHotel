@@ -69,9 +69,9 @@
                                     <thead>
                                     <tr>
                                         <th class="text-lg-center">{{trans('admin.Public_HashNum')}}</th>
-                                        <th class="text-lg-center">{{trans('admin.name')}}</th>
-                                        <th class="text-lg-center">{{trans('admin.start_at')}}</th>
-                                        <th class="text-lg-center">{{trans('admin.end_at')}}</th>
+                                        <th class="text-lg-center">{{trans('admin.price')}}</th>
+                                        <th class="text-lg-center">{{trans('admin.description')}}</th>
+                                        <th class="text-lg-center">{{trans('admin.category')}}</th>
                                         <th class="text-lg-center">{{trans('admin.image')}}</th>
                                         <th class="text-lg-center"></th>
 
@@ -84,9 +84,9 @@
                                     @foreach($ads as $ad)
                                         <tr>
                                             <th scope="row" class="text-lg-center">{{$ad->id}}</th>
-                                            <td class="text-lg-center">{{$ad->name}}</td>
-                                            <td class="text-lg-center">{{$ad->start_at}}</td>
-                                            <td class="text-lg-center">{{$ad->end_at}}</td>
+                                            <td class="text-lg-center">{{$ad->price}}</td>
+                                            <td class="text-lg-center">{{$ad->description}}</td>
+                                            <td class="text-lg-center">{{$ad->category->name}}</td>
                                             <td class="text-lg-center"> 
                                             <img src="{{ url($ad->image) }}"
                                      style="width:90px;height:90px;"/>

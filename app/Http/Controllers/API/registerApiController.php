@@ -80,22 +80,18 @@ class registerApiController extends Controller
             [
                 'name' => 'required|unique:users',
                 'phone' => 'numeric|required|unique:users',
-                'company_name' => 'required',
                 'email' => 'required|unique:users',
-                'password' => 'required|min:6',
-                'payment_method'=>'required',
-                'type'=>'required',
-                'card_number'=>'sometimes|nullable',
-                'categories'=>'required',
-                
+                'password' => 'required|min:6|confirmed',
+                'password_confirmation' => 'required|min:6',
             ]);
 
         if (!is_array($validate)) {
 
      
-
+            if($request['password'] != null  && $request['password_confirmation'] != null ){
             $input['password'] = bcrypt(request('password'));
-
+            $input['type'] = 'provider';
+            
             $user = User::create($input);
 
            
@@ -103,13 +99,9 @@ class registerApiController extends Controller
 
             $api_token = $user->api_token;
             $user->save();
-
-
-        foreach ($input['categories'] as $cat) {
-            customer_category::create(['user_id' => $user->id, 'category_id' => $cat]);
-        }
-
             return $this->sendResponse(200, 'تم أضافة حساب جديد بنجاح', $user);
+        }
+           
         } else {
             return $this->sendResponse(403, $validate, null);
         }
@@ -126,14 +118,13 @@ class registerApiController extends Controller
             [
                 'api_token' => 'required',
                 'name' => 'required|unique:users,name,' . $id,
-                'user_id' => 'required',
+                'user_id' => 'required|exists:users,id',
                 'phone' => 'numeric|unique:users,phone,' . $id,
-                'company_name' => 'required',
                 'email' => 'required|unique:users,email,' . $id,
                 'password' => 'required|min:6',
-                'payment_method'=>'required',
-                'card_number'=>'sometimes|nullable',
-            ]);
+                'telephone'=>'required',
+                'image' => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp',
+                ]);
 
 
             if (!is_array($validate)) {
@@ -152,7 +143,22 @@ class registerApiController extends Controller
         {
             unset($input['password']);
         }
+
+        if ($request['image'] != null) {
+            // This is Image Information ...
+            $file = $request->file('image');
+            $name = $file->getClientOriginalName();
+            $ext = $file->getClientOriginalExtension();
+            // Move Image To Folder ..
+            $fileNewName = 'img_' . time() . '.' . $ext;
+            $file->move(public_path('uploads/Providers'), $fileNewName);
+            $input['image'] = $fileNewName;
+
+        }else{
+            unset($input['image']);
+        }
         $User = User::find(intval($id))->update($input);
+
 
            return $this->sendResponse(200, 'تم التعديل', $User);
         }else{
@@ -163,4 +169,50 @@ class registerApiController extends Controller
             return $this->sendResponse(403, $validate, null);
         }
     }
+
+    public function changePass(Request $request)
+    {
+        $input = $request->all();
+        $id = $request->input('user_id');
+       
+
+            $validate = $this->makeValidate($input,
+            [
+          
+                'user_id' => 'required',
+                'password' => 'sometimes|nullable|confirmed|min:6',
+            ]);
+
+
+            if (!is_array($validate)) {
+
+            $api_token = $request->input('api_token');
+          
+            $user = User::where('api_token',$api_token)->first();
+            if($user != null){
+
+                if($request->input('password') != null  && $request->input('password_confirmation')!= null ){
+
+
+                    $pass= Hash::make($request->input('password'));
+                    $data['password'] = $pass;
+        
+        //            auth()->logout();
+        
+                }else
+                {
+                    return $this->sendResponse(200, 'يجب ملئ الحقول', $User);
+                }
+                $User = User::where('id', $id)->update($data);
+
+           return $this->sendResponse(200, 'تم تغير الرقم السرى', $User);
+        }else{
+            return $this->sendResponse(403, 'يرجى تسجيل الدخول ',null);
+        }
+       
+        }else {
+            return $this->sendResponse(403, $validate, null);
+        }
+    }
+
 }

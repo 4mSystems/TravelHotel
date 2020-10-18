@@ -87,9 +87,8 @@
                                         <th class="text-lg-center">{{trans('admin.Public_HashNum')}}</th>
                                         <th class="text-lg-center">{{trans('admin.provider')}}</th>
                                         <th class="text-lg-center">{{trans('admin.Activation')}}</th>
-                                        <th class="text-lg-center">{{trans('admin.name')}}</th>
-                                        <th class="text-lg-center">{{trans('admin.start_at')}}</th>
-                                        <th class="text-lg-center">{{trans('admin.end_at')}}</th>
+                                        <th class="text-lg-center">{{trans('admin.description')}}</th>
+                                        <th class="text-lg-center">{{trans('admin.price')}}</th>
                                         <th class="text-lg-center">{{trans('admin.status_ad')}}</th>
                                         <th class="text-lg-center">{{trans('admin.image')}}</th>
                                         <th class="text-lg-center">{{trans('admin.actions')}}</th>
@@ -111,9 +110,8 @@
                                                     href=" {{url('BlockProvider/'.$ad->provider_id)}}"><i
                                                     ></i>Block</a>
                                             </th>
-                                            <td class="text-lg-center">{{$ad->name}}</td>
-                                            <td class="text-lg-center">{{$ad->start_at}}</td>
-                                            <td class="text-lg-center">{{$ad->end_at}}</td>
+                                            <td class="text-lg-center">{{$ad->description}}</td>
+                                            <td class="text-lg-center">{{$ad->price}}</td>
                                             <td class="text-lg-center">
                                             
                                         @if($ad->status != 'pending')

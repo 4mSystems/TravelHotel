@@ -17,24 +17,23 @@
 
             
 
-            @if(Auth::user()->type == "provider")
+            <!-- @if(Auth::user()->type == "provider")
             <li class=" nav-item">
                 <a href="{{url('ads')}}"><i class="icon-users"></i>
                     <span data-i18n="nav.dash.main"
                             class="menu-title">{{trans('admin.nav_ads')}}</span></a>
 
             </li>
-            @endif
+            @endif -->
             
             @if(Auth::user()->type == "super admin")
 
             <li class=" nav-item">
-                <a href="{{url('super_Admin')}}"><i class="icon-users"></i>
+                <a href="{{url('ad_cost')}}"><i class="icon-users"></i>
                     <span data-i18n="nav.dash.main"
-                            class="menu-title">{{trans('admin.nav_add_Super_Admin')}}</span></a>
+                            class="menu-title">{{trans('admin.nav_ad_cost')}}</span></a>
 
             </li>
-
             <li class=" nav-item">
                 <a href="{{url('provider')}}"><i class="icon-users"></i>
                     <span data-i18n="nav.dash.main"
@@ -55,12 +54,12 @@
 
             </li>
 
-            <li class=" nav-item">
+            <!-- <li class=" nav-item">
                 <a href="#"><i class="icon-users"></i>
                     <span data-i18n="nav.dash.main"
                             class="menu-title">{{trans('admin.nav_send_notif')}}</span></a>
 
-            </li>
+            </li> -->
             @endif
 
 

@@ -62,7 +62,6 @@
                                         <th class="text-lg-center">{{trans('admin.name')}}</th>
                                         <th class="text-lg-center">{{trans('admin.email')}}</th>
                                         <th class="text-lg-center">{{trans('admin.phone')}}</th>
-                                        <th class="text-lg-center">{{trans('admin.company_name')}}</th>
                                         <th class="text-lg-center"></th>
 
                                     </tr>
@@ -74,7 +73,6 @@
                                             <td class="text-lg-center">{{$user->name}}</td>
                                             <td class="text-lg-center">{{$user->email}}</td>
                                             <td class="text-lg-center">{{$user->phone}}</td>
-                                            <td class="text-lg-center">{{$user->company_name}}</td>
 
                                             <td class="text-lg-center">
                                             

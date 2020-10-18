@@ -15,15 +15,10 @@ class CreateAdsTable extends Migration
     {
         Schema::create('ads', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('image');
             $table->string('description');
-            $table->string('phone');
-            $table->string('address');
-            $table->string('title');
+            $table->float('price');
             $table->enum('status',['pending','accepted','rejected','finished'])->default('pending');
-            $table->time('start_at');
-            $table->time('end_at');
             $table->bigInteger('provider_id')->unsigned()->nullable();
             $table->foreign('provider_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('category_id')->unsigned()->nullable();

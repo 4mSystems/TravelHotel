@@ -32,7 +32,7 @@
             <div class="row">
 
                 <div class="card">
-                    <div class="card-header">
+                    <!-- <div class="card-header">
                         <a href="{{url('provider/create')}} "
                            class="btn btn-info btn-bg">{{trans('admin.add_new_Provider')}} </a>
                         <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
@@ -42,7 +42,7 @@
                                 <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                     
                     <div class="card-body">
 
@@ -61,7 +61,6 @@
                                         <th class="text-lg-center">{{trans('admin.name')}}</th>
                                         <th class="text-lg-center">{{trans('admin.email')}}</th>
                                         <th class="text-lg-center">{{trans('admin.phone')}}</th>
-                                        <th class="text-lg-center">{{trans('admin.company_name')}}</th>
                                         <th class="text-lg-center"></th>
 
                                     </tr>
@@ -73,11 +72,12 @@
                                             <td class="text-lg-center">{{$user->name}}</td>
                                             <td class="text-lg-center">{{$user->email}}</td>
                                             <td class="text-lg-center">{{$user->phone}}</td>
-                                            <td class="text-lg-center">{{$user->company_name}}</td>
 
-                                            <td class="text-lg-center"><a class='btn btn-raised btn-success btn-sml'
+                                            <td class="text-lg-center">
+                                            
+                                            <!-- <a class='btn btn-raised btn-success btn-sml'
                                                                           href=" {{url('provider/'.$user->id.'/edit')}}"><i
-                                                        class="icon-edit"></i></a>
+                                                        class="icon-edit"></i></a> -->
 
                                                 <form method="get" id='delete-form-{{ $user->id }}'
                                                       action="{{url('provider/'.$user->id.'/delete')}}"
